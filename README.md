@@ -63,9 +63,11 @@ Optionally takes an object containing the default configuration options.
 | `welcomeMessage`         | Short message sent to the user after authentication.                                                                                                                                   |     Welcome to IRC     |
 | `requireNickname`        | Boolean that indicates if authentication should wait for a nickname. If false, a default nickname will be assigned.                                                                    |          false         |
 | `authTimeout`            | Length of time in milliseconds that the server should wait for user credentials before rejecting the connection.                                                                       |          5000          |
+| `pingTime`               | Length of time in milliseconds that the server should wait before pinging the client.                                                                                                  |          60000         |
 | `validateAuthentication` | Function to be called after connecting users send their username.  Leave undefined if no user authentication is needed. See below for function signature and usage.                    |        undefined       |
 | `validateNickname`       | Function to be called after receiving a nickname change or at initial login. Allows for rejection and/or override of nickname changes. See below for function signature and usage.     |        undefined       |
 | `maxNickLength`          | Maximum number of characters allowed in a nickname.                                                                                                                                    |            9           |
+| `useDefaultExtensions`   | Boolean that indicates if the default authentication and nickname extensions should be used.                                                                                           |          true          |
 
 ### `app.listen(port, [address,] [callback])`
 
@@ -164,7 +166,7 @@ connection.on('PRIVMSG', function (target, message) {
 
 ## User Validation
 
-By default, ircdkit will accept any user you connects to the server and sends the USER command.  If you wish to authenticate user accounts, 
+By default, ircdkit will accept any user you connects to the server and sends the USER command.  If you wish to authenticate user accounts,
 you may do so by defining a `validateAuthentication` callback on the configuration options.  This callback will be invoked when the client
 sends their username credentials. A password is sent as a separate command (PASS), and is optional within the protocol, so testing the user's
 password must be done conditionally.  The validateAuthentication callback takes the following format:
